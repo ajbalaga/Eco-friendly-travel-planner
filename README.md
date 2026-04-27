@@ -35,4 +35,4 @@ To run this project locally using **XAMPP**, follow these steps:
 ### 2. Clone the Repository
 ```bash
 git clone (https://github.com/ajbalaga/Eco-friendly-travel-planner.git)
-cd eco-travel-planner
+cd Eco-friendly-travel-planner
