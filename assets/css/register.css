@@ -1,0 +1,207 @@
+/* Specific Wrapper to isolate these styles */
+.register-page-container {
+    background: linear-gradient(135deg, #f1f8e9 0%, #c8e6c9 50%, #aed581 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+/* Entrance Animation */
+@keyframes regSlideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glassmorphism Card */
+.register-page-container .register-card {
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    padding: 40px;
+    border-radius: 28px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.06), 0 10px 20px rgba(46, 125, 50, 0.04);
+    width: 100%;
+    max-width: 480px; /* Slightly wider for the side-by-side passwords */
+    box-sizing: border-box;
+    animation: regSlideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Header & Badge */
+.register-page-container .eco-badge {
+    display: inline-flex;
+    background: rgba(139, 195, 74, 0.15);
+    color: #2e7d32;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+}
+
+.register-page-container h1 {
+    margin: 0 0 8px 0;
+    color: #1b5e20;
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+.register-page-container p {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+/* Form Layout */
+.register-page-container .register-form { text-align: left; }
+
+.register-page-container .register-field { margin-bottom: 18px; }
+
+/* Password Grid for Desktop */
+.register-page-container .register-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.register-page-container label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #2e7d32;
+    margin-bottom: 6px;
+    padding-left: 2px;
+}
+
+.register-page-container input {
+    width: 100%;
+    padding: 12px 16px;
+    background: #fff;
+    border: 2px solid #e2ebd8;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.register-page-container input:focus {
+    outline: none;
+    border-color: #7cb342;
+    box-shadow: 0 0 0 4px rgba(124, 179, 66, 0.1);
+}
+
+/* Button */
+.register-page-container .register-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #7cb342 0%, #558b2f 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(85, 139, 47, 0.2);
+}
+
+.register-page-container .register-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(85, 139, 47, 0.3);
+}
+
+/* Alerts (Error & Success) */
+.register-page-container .register-alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.register-page-container .register-alert.error {
+    background: #fff0f0;
+    color: #d32f2f;
+    border-left: 4px solid #d32f2f;
+}
+
+.register-page-container .register-alert.success {
+    background: #f1f8e9;
+    color: #388e3c;
+    border-left: 4px solid #388e3c;
+}
+
+.register-page-container .register-alert ul {
+    margin: 0;
+    padding: 0 0 0 5px;
+    list-style: none;
+}
+
+.register-page-container .alert-icon { margin-right: 12px; }
+
+/* Footer Links */
+.register-page-container .register-footer {
+    margin-top: 30px;
+    border-top: 1px solid rgba(46, 125, 50, 0.1);
+    padding-top: 20px;
+    text-align: center;
+}
+
+.register-page-container .register-footer a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.register-page-container .register-home-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: #999 !important;
+    font-weight: 500 !important;
+}
+
+/* 1. Make the wrapper the "anchor" for the eye icon */
+.register-page-container .password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* 2. Position the eye inside the input box */
+.register-page-container .toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%); /* Perfectly centers it vertically */
+    cursor: pointer;
+    color: #7cb342; /* Matches your theme green */
+    z-index: 10;
+    padding: 5px;
+    transition: color 0.2s ease;
+}
+
+.register-page-container .toggle-password:hover {
+    color: #558b2f;
+}
+
+/* 3. Ensure text doesn't overlap the eye icon when typing */
+.register-page-container .password-input-wrapper input {
+    padding-right: 40px !important;
+}
+
+/* Responsive adjustment for password grid */
+@media (max-width: 400px) {
+    .register-page-container .register-grid {
+        grid-template-columns: 1fr;
+    }
+}

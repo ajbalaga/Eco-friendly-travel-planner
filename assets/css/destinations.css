@@ -62,3 +62,50 @@
             gap: 0.75rem;
             align-items: center;
         }
+
+        .search-btn-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Base styles for both */
+        .custom-btn-search, 
+        .custom-btn-reset {
+            height: 42px !important; /* Forces the height to match your input */
+            border-radius: 10px !important;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none !important;
+            transition: 0.2s;
+            border: 2px solid #8cc63f !important;
+        }
+
+        /* Search Button (Solid Green) */
+        .custom-btn-search {
+            width: 45px;
+            background-color: #8cc63f !important;
+            color: white !important;
+            cursor: pointer;
+        }
+
+        /* Reset Button (Outline Green) */
+        .custom-btn-reset {
+            padding: 0 15px !important;
+            background-color: transparent !important;
+            color: #8cc63f !important;
+        }
+
+        /* Hover States */
+        .custom-btn-search:hover {
+            background-color: #7ab335 !important;
+        }
+
+        .custom-btn-reset:hover {
+            background-color: #8cc63f !important;
+            color: white !important;
+        }

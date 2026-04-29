@@ -1,0 +1,188 @@
+/* --- 1. Base & Background --- */
+.profile-page-container {
+    background: linear-gradient(135deg, #f1f8e9 0%, #c8e6c9 50%, #aed581 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding: 20px;
+}
+
+/* --- 2. The Card --- */
+.profile-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    padding: 40px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- 3. Header & Text --- */
+.profile-header { margin-bottom: 30px; text-align: center; }
+.profile-header h1 { color: #1b5e20; margin: 10px 0; font-size: 1.8rem; }
+.profile-header p { color: #666; font-size: 0.95rem; }
+
+.eco-badge {
+    display: inline-block;
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- 4. Profile Picture --- */
+.avatar-edit-section { display: flex; justify-content: center; margin-bottom: 30px; }
+.avatar-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border: 4px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+.avatar-circle img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+.camera-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #388e3c;
+    color: #fff;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 3px solid #fff;
+    transition: 0.3s;
+}
+.camera-overlay:hover { background: #2e7d32; transform: scale(1.1); }
+
+/* --- 5. Form & Grid --- */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 480px) {
+    .form-grid { grid-template-columns: 1fr; }
+}
+
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-size: 0.8rem; font-weight: 700; color: #444; margin-bottom: 6px; }
+.form-group input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #edf2f4;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+.form-group input:focus { border-color: #8bc34a; outline: none; box-shadow: 0 0 0 4px rgba(139, 195, 74, 0.1); }
+
+/* --- 6. Divider --- */
+.password-divider {
+    grid-column: span 2;
+    margin: 25px 0 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.password-divider span { font-weight: 700; color: #2e7d32; font-size: 0.9rem; }
+.password-divider small { color: #999; }
+
+.form-group .password-input-wrapper input {
+    padding-right: 45px !important;
+}
+
+/* --- 10. Password Toggle Fix --- */
+.password-input-wrapper {
+    position: relative; /* This is the "anchor" for the eye icon */
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;      /* Matches the horizontal padding of your inputs */
+    top: 50%;
+    transform: translateY(-50%); /* Perfectly centers vertically */
+    cursor: pointer;
+    color: #8bc34a;   /* Matches your theme's light green */
+    z-index: 10;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+}
+
+.toggle-password:hover {
+    color: #388e3c;   /* Darker green on hover */
+}
+
+/* Ensure the input field inside this wrapper handles padding correctly */
+.password-input-wrapper input {
+    padding-right: 45px !important; /* Prevents text from going under the eye */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* --- 7. Alerts --- */
+.profile-alert {
+    padding: 12px 18px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.profile-alert.success { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+.profile-alert.error { background: #ffebee; color: #c62828; border: 1px solid #ffcdd2; }
+.profile-alert.info { background: #e3f2fd; color: #1565c0; border: 1px solid #bbdefb; }
+
+/* --- 8. Button --- */
+.save-btn {
+    width: 100%;
+    padding: 15px;
+    background: #388e3c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+}
+
+.save-btn:hover:not(:disabled) { background: #2e7d32; transform: translateY(-2px); }
+.save-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* --- 9. Footer --- */
+.profile-footer { margin-top: 25px; text-align: center; }
+.back-link { color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+.back-link:hover { color: #388e3c; }

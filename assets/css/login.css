@@ -1,0 +1,198 @@
+/* Specific Wrapper to isolate these styles */
+.login-page-container {
+    /* Richer, softer eco-gradient */
+    background: linear-gradient(135deg, #f1f8e9 0%, #c8e6c9 50%, #aed581 100%);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', system-ui, Roboto, Helvetica, Arial, sans-serif;
+    padding: 20px; /* Ensures card doesn't touch screen edges on mobile */
+    box-sizing: border-box;
+}
+
+/* Entry Animation for the Card */
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glassmorphism Card */
+.login-page-container .login-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    padding: 45px 40px;
+    border-radius: 28px;
+    /* Layered shadows for a more premium, floating effect */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05), 0 10px 20px rgba(46, 125, 50, 0.05);
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    text-align: center;
+    animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Header & Badge */
+.login-page-container .eco-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(139, 195, 74, 0.15);
+    color: #2e7d32;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(139, 195, 74, 0.3);
+}
+
+.login-page-container h1 {
+    margin: 0 0 10px 0;
+    color: #1b5e20;
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.login-page-container p {
+    color: #555;
+    margin-bottom: 35px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Form Styling */
+.login-page-container .login-form {
+    text-align: left;
+}
+
+.login-page-container .login-field {
+    margin-bottom: 22px;
+}
+
+.login-page-container label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2e7d32;
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.login-page-container input {
+    width: 100%;
+    padding: 14px 16px;
+    background: #ffffff; /* Solid white to contrast with the glass */
+    border: 2px solid #e2ebd8;
+    border-radius: 14px;
+    font-size: 1rem;
+    color: #333;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-sizing: border-box;
+}
+
+.login-page-container input::placeholder {
+    color: #a0b299;
+}
+
+.login-page-container input:focus {
+    outline: none;
+    border-color: #7cb342;
+    box-shadow: 0 0 0 4px rgba(124, 179, 66, 0.15);
+    background: #fdfefc;
+}
+
+/* Button with specific hover effect */
+.login-page-container .login-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, #7cb342 0%, #558b2f 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(85, 139, 47, 0.2);
+}
+
+.login-page-container .login-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(85, 139, 47, 0.35);
+    background: linear-gradient(135deg, #689f38 0%, #33691e 100%);
+}
+
+.login-page-container .login-submit-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 8px rgba(85, 139, 47, 0.2);
+}
+
+/* Error Alert */
+.login-page-container .login-alert {
+    background: #fff0f0;
+    color: #d32f2f;
+    padding: 14px;
+    border-radius: 12px;
+    border-left: 4px solid #d32f2f;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.login-page-container .alert-icon { margin-right: 10px; font-size: 1.1rem; }
+
+/* Footer Links */
+.login-page-container .login-footer {
+    margin-top: 35px;
+    border-top: 1px solid rgba(46, 125, 50, 0.1);
+    padding-top: 25px;
+    text-align: center;
+}
+
+.login-page-container .login-footer p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.login-page-container .login-footer a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.login-page-container .login-footer a:hover {
+    color: #1b5e20;
+    text-decoration: underline;
+}
+
+.login-page-container .login-home-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #888 !important;
+    font-weight: 500 !important;
+    transition: color 0.2s ease;
+}
+
+.login-page-container .login-home-link:hover {
+    color: #555 !important;
+}
+
+/* Responsive fixes for small screens */
+@media (max-width: 480px) {
+    .login-page-container .login-card {
+        padding: 35px 25px;
+    }
+}
+

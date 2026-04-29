@@ -25,12 +25,12 @@
 }
 
 body {
+    background: linear-gradient(135deg, #f1f8e9 0%, #c8e6c9 50%, #aed581 100%);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(180deg, #f5fbf7 0%, var(--bg) 100%);
     color: var(--text);
     line-height: 1.6;
 }
@@ -64,6 +64,7 @@ a:hover {
     border-radius: 999px;
     margin-bottom: 1.2rem;
 }
+
 
 /* =========================================
    3. LAYOUT & CONTAINERS
@@ -317,6 +318,228 @@ a:hover {
     border: 1px solid #cdecd9;
 }
 
+/* Base Note Styling */
+.note {
+    margin-top: 2rem;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: inline-flex; /* Shrinks the width to fit the text */
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05); /* Subtle glassmorphism */
+    color: #cbd5e1; /* Soft grey-blue text */
+    max-width: 90%;
+}
+
+/* Logged-in / Success State */
+.note.success {
+    background: #e8f5e9;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #2e7d32; 
+    font-weight: 500;
+}
+
+.note.logged-in-note {
+    display: inherit;
+    margin-bottom: 7%;
+    align-items: center;
+    gap: 6px;
+    
+    /* Typography: Small and sleek */
+    /* font-size: 0.7rem; */
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+    color: #86efac;
+    
+    /* Style: Minimalist */
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 999px;
+    backdrop-filter: blur(4px); /* Adds a premium feel */
+}
+
+/* --- Desktop Styles (Default) --- */
+.menu-toggle {
+    display: none; /* Hide burger on big screens */
+}
+
+.nav-links {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Hide the text label on desktop */
+.mobile-profile-text {
+    display: none; 
+}
+
+/* This allows the icon to be positioned relative to this box */
+.password-input-wrapper {
+    position: relative; 
+}
+
+/* Ensure the input doesn't hide the icon */
+.password-input-wrapper input {
+    width: 100%;
+    padding-right: 45px; /* Space so text doesn't go under the eye */
+}
+
+/* Update this specific block in your CSS */
+#togglePassword {
+    position: absolute;
+    right: 10px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    z-index: 10; /* Forces it to sit on top of the input */
+    pointer-events: auto; /* Ensures it can be clicked */
+}
+
+.toggle-password:hover {
+    color: #4CAF50; /* Match your sustainable green theme */
+}
+
+   /* --- Mobile Styles --- */
+@media (max-width: 768px) {
+    .nav-container {
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: flex; /* Changed from block to center lines easily */
+        align-items: center;
+        justify-content: center;
+        background: rgba(137, 190, 64, 0.1); /* Subtle background using #89be40 */
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        padding: 15px; /* Bigger tap target */
+        z-index: 1001;
+        transition: all 0.3s ease;
+    }
+
+    /* The middle line */
+    .hamburger {
+        position: relative;
+        display: block;
+        background: #89be40; 
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* The top and bottom lines */
+    .hamburger::before, 
+    .hamburger::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        background: #89be40;
+        height: 3px;
+        width: 25px;
+        border-radius: 3px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Fix: Use absolute positioning for perfect spacing */
+    .hamburger::before { transform: translateY(-8px); }
+    .hamburger::after { transform: translateY(8px); }
+
+    /* --- Animation to "X" when active --- */
+    .menu-toggle.is-active .hamburger {
+        background: transparent; /* Hide middle line */
+    }
+
+    .menu-toggle.is-active .hamburger::before {
+        transform: rotate(45deg);
+        top: 0;
+    }
+
+    .menu-toggle.is-active .hamburger::after {
+        transform: rotate(-45deg);
+        top: 0;
+    }
+
+    /* The Hidden Menu */
+    .nav-links {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: calc(100% + 10px); /* Small gap from header */
+        right: 0;
+        background: #ffffff;
+        width: 220px;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        border: 1px solid #edf2f7;
+        z-index: 1000;
+        gap: 0.8rem;
+    }
+
+    .nav-links.active {
+        display: flex;
+        animation: fadeIn 0.3s ease-out;
+    }
+
+    .nav-links .btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    /* --- NEW: Profile Link Mobile Styling --- */
+    .nav-profile {
+        order: -1; /* Magically moves the profile link to the VERY TOP of the menu */
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-bottom: 2px solid #f1f8e9; /* Nice divider line under the profile */
+        margin-bottom: 5px;
+        text-decoration: none;
+        color: #2e7d32;
+        font-weight: 700;
+        border-radius: 8px;
+        transition: background 0.2s;
+    }
+
+    .nav-profile:hover, .nav-profile:active {
+        background: #f9fbf9; /* Subtle tap highlight */
+    }
+
+    /* Show the text on mobile */
+    .mobile-profile-text {
+        display: inline-block; 
+    }
+
+    /* Ensure avatar size is consistent */
+    .nav-avatar {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    /* --- NEW: Logout Button Mobile Styling --- */
+    .logout-btn {
+        order: 99; /* Forces Logout to the very bottom of the menu */
+        margin-top: 10px; 
+        color: #e53935; /* Optional: Make logout red to signify destructive action */
+        border-color: #ffebee;
+        background: #fff5f5;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 /* =========================================
    8. FORMS & AUTHENTICATION
    ========================================= */
@@ -443,4 +666,49 @@ footer .container {
     .btn {
         text-align: center;
     }
+}
+
+/* =========================================
+   10. PROFILE PAGE
+   ========================================= */
+.nav-profile-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+    margin-left: 5px;
+}
+
+.nav-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Makes it a circle */
+    object-fit: cover;  /* Prevents the image from stretching */
+    border: 2px solid #8bc34a; /* Adds a nice eco-green border */
+    background-color: #eee; /* Fallback background color */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-profile-item:hover {
+    transform: scale(1.1); /* Subtle pop effect on hover */
+}
+
+.nav-avatar:hover {
+    border-color: #689f38;
+}
+
+/* This stops the cursor from changing AND stops the blue highlighting */
+h1, h2, h3, p, span, .eco-badge, .profile-header, .feature-list li, .note, .notes-preview,
+.disclaimer-text, .trip-results-main, .impact-val, .itinerary-table th {
+    cursor: default !important;
+    user-select: none;         /* Standard */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* Legacy IE */
+}
+
+/* Ensure users can still type in the boxes they actually need */
+input, textarea {
+    cursor: text !important;
+    user-select: text !important;
 }

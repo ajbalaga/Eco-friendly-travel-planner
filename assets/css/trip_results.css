@@ -1,63 +1,166 @@
-        .result-header-panel {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #fff;
-            border-radius: 20px;
-            padding: 2.5rem;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.04);
-        }
+/* --- Main Layout Panels --- */
+.result-header-panel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    border-radius: 20px;
+    padding: 2.5rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    flex-wrap: wrap; 
+    gap: 20px;
+    box-sizing: border-box;
+}
 
-        .analysis-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
+.analysis-grid {
+    display: grid;
+    /* Automatically stacks when columns drop below 320px */
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 1.5rem;
+    margin-top: 2rem;
+    width: 100%;
+}
 
-        .stat-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-            margin-top: 1rem;
-        }
+/* --- Stats and Scores --- */
+.stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
 
-        .score-value {
-            font-size: 3rem;
-            color: #89be40;
-            line-height: 1;
-            font-weight: 800;
-        }
+.score-value {
+    font-size: 3rem;
+    color: #89be40;
+    line-height: 1;
+    font-weight: 800;
+}
 
-        .tip-box {
-            padding: 1.2rem;
-            background: #fff4e5;
-            border-left: 4px solid #ffa94d;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            color: #855e2a;
-            margin-top: 1.5rem;
-        }
+.tip-box {
+    padding: 1.2rem;
+    background: #fff4e5;
+    border-left: 4px solid #ffa94d;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: #855e2a;
+    margin-top: 1.5rem;
+    /* Prevent tip box from stretching */
+    overflow-wrap: anywhere;
+}
 
-        .eco-notes-panel {
-            background: #f0f7e9;
-            border: 1px solid #ddecce;
-        }
+.eco-notes-panel {
+    background: #f0f7e9;
+    border: 1px solid #ddecce;
+}
 
-        .notes-preview {
-            margin-top: 2rem;
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
+/* --- THE NOTES PREVIEW FIX --- */
+.notes-preview {
+    margin-top: 2rem;
+    background: #ffffff;
+    border: 1px solid #edf2f7;
+    border-left: 5px solid #89be40; 
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    
+    /* CRITICAL FIXES FOR FITTING: */
+    width: 100%;           /* Fill container */
+    max-width: 100%;       /* Do not exceed screen */
+    box-sizing: border-box; /* Include padding in width calculation */
+    min-width: 0;          /* Allows the grid item to shrink below content size */
+    overflow: hidden;      /* Safety clip */
+}
 
-        .result-footer {
-            display: flex; 
-            justify-content: space-between; 
-            padding: 2rem 0; 
-            border-top: 1px solid #eee; 
-            margin-top: 4rem;
-            opacity: 0.7;
-            font-size: 0.85rem;
-        }
+.notes-preview strong {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #718096;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.notes-preview strong::before {
+    content: "📌";
+    font-style: normal;
+}
+
+.notes-preview p {
+    color: #2d3748;
+    font-style: italic;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+    
+    /* THE TRIPLE THREAT WRAPPING FIX: */
+    white-space: pre-wrap;      /* Keep line breaks */
+    overflow-wrap: anywhere;    /* Modern break logic */
+    word-break: break-all;      /* Aggressive break for gibberish strings */
+    display: block;             /* Ensure it behaves like a block */
+    width: 100%;                /* Stay within card limits */
+}
+
+.disclaimer-text {
+    margin-top: 1.8rem;
+    padding-top: 1rem;
+    border-top: 1px solid #edf2f7; /* Subtle divider line */
+    font-size: 0.75rem;            /* Smaller, legal-style text */
+    color: #718096;               /* Muted grey/slate */
+    line-height: 1.6;
+    font-style: italic;           /* Clean look */
+}
+
+.disclaimer-text strong {
+    color: #4a5568;               /* Slightly darker for the heading */
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-style: italic; 
+}
+
+.disclaimer-text em {
+    font-style: italic;           /* Removing italics for better readability */
+    display: block;
+}
+
+/* --- Footer --- */
+.result-footer {
+    display: flex; 
+    justify-content: space-between; 
+    padding: 2rem 0; 
+    border-top: 1px solid #eee; 
+    margin-top: 4rem;
+    opacity: 0.7;
+    font-size: 0.85rem;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* --- Responsive Mobile Tweaks --- */
+@media (max-width: 768px) {
+    .result-header-panel {
+        padding: 1.5rem;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .result-header-panel div {
+        width: 100%; 
+    }
+
+    .score-value {
+        font-size: 2.5rem;
+        margin-top: 0.5rem;
+    }
+
+    .stat-grid {
+        grid-template-columns: 1fr; 
+    }
+
+    .result-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+}

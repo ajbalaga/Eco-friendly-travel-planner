@@ -1,7 +1,64 @@
 <?php
 declare(strict_types=1);
 session_start();
+
+// 1. Security Headers
+header("X-XSS-Protection: 1; mode=block");
+header("X-Frame-Options: SAMEORIGIN");
+header("X-Content-Type-Options: nosniff");
+
 require_once '../config/database.php';
+
+/**
+ * THE CONNECTION BRIDGE
+ * Automatically detects if your config uses $pdo or $conn
+ */
+if (!isset($conn)) {
+    if (isset($pdo)) { $conn = $pdo; }
+    elseif (isset($db)) { $conn = $db; }
+}
+
+// 2. Strict Authentication Validation
+if (!isset($_SESSION['user_id']) || !is_numeric($_SESSION['user_id'])) {
+    session_destroy();
+    header('Location: ../auth/login.php');
+    exit;
+}
+
+// 3. CSRF Token Generation
+if (empty($_SESSION['csrf_token'])) {
+    try {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    } catch (Exception $e) {
+        $_SESSION['csrf_token'] = md5(uniqid((string)mt_rand(), true));
+    }
+}
+
+// 4. Secure Profile Image Assignment (FETCH FROM DATABASE)
+$default_avatar = "../assets/images/default-avatar.png";
+$user_pic = $default_avatar;
+
+if (isset($conn) && $conn instanceof PDO) {
+    try {
+        // Use a unique variable name ($stmt_pic) so it doesn't overwrite your search results later
+        $stmt_pic = $conn->prepare("SELECT profile_image FROM users WHERE user_id = ? LIMIT 1");
+        $stmt_pic->execute([$_SESSION['user_id']]);
+        $user_row = $stmt_pic->fetch();
+
+        if ($user_row && !empty($user_row['profile_image'])) {
+            $filename = $user_row['profile_image'];
+            $relative_path = "../assets/uploads/profiles/" . $filename;
+            
+            // Physical file check using __DIR__ for accuracy
+            if (file_exists(__DIR__ . '/' . $relative_path)) {
+                $user_pic = $relative_path . "?v=" . time(); // Cache busting
+                $_SESSION['profile_image'] = $filename; // Keep session synced
+            }
+        }
+    } catch (PDOException $e) {
+        error_log("Profile image fetch error: " . $e->getMessage());
+    }
+}
 
 $search = trim($_GET['search'] ?? '');
 
@@ -20,27 +77,28 @@ $orderLogic = "
     eco_rating DESC, 
     name ASC";
 
-if ($search !== '') {
-    // FIX: Using unique placeholders (:s1, :s2, :s3) to prevent the HY093 error[cite: 1]
-    $stmt = $conn->prepare("SELECT * FROM destinations 
-                            WHERE name LIKE :s1 
-                               OR location LIKE :s2 
-                               OR description LIKE :s3 
-                            ORDER BY $orderLogic");
-    
-    $searchTerm = '%' . $search . '%';
-    
-    // FIX: Mapping the search term to each unique placeholder[cite: 1]
-    $stmt->execute([
-        's1' => $searchTerm,
-        's2' => $searchTerm,
-        's3' => $searchTerm
-    ]);
+// 5. Destination Query Logic
+if (isset($conn) && $conn instanceof PDO) {
+    if ($search !== '') {
+        $stmt = $conn->prepare("SELECT * FROM destinations 
+                                WHERE name LIKE :s1 
+                                   OR location LIKE :s2 
+                                   OR description LIKE :s3 
+                                ORDER BY $orderLogic");
+        
+        $searchTerm = '%' . $search . '%';
+        $stmt->execute([
+            's1' => $searchTerm,
+            's2' => $searchTerm,
+            's3' => $searchTerm
+        ]);
+    } else {
+        $stmt = $conn->query("SELECT * FROM destinations ORDER BY $orderLogic");
+    }
+    $destinations = $stmt->fetchAll();
 } else {
-    $stmt = $conn->query("SELECT * FROM destinations ORDER BY $orderLogic");
+    $destinations = [];
 }
-
-$destinations = $stmt->fetchAll();
 
 /**
  * HELPER FUNCTIONS
@@ -66,6 +124,7 @@ function getRegionName(string $location): string {
     <title>Destinations | Sustainable Travel Planner</title>
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/destinations.css">
+    <script src="../assets/js/main.js" defer></script>
 </head>
 <body>
     <header class="sub-header">
@@ -74,12 +133,23 @@ function getRegionName(string $location): string {
                 <h1 class="page-title">Eco-Rated Destinations</h1>
                 <p class="tagline">Explore the world by region and sustainability rating.</p>
             </div>
-            <nav class="nav-links">
+            <nav class="nav-container">
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+
+            <div class="nav-links">
                 <a class="btn btn-outline" href="../index.php">Home</a>
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <a class="btn btn-outline" href="dashboard.php">Dashboard</a>
-                    <a class="btn btn-primary" href="plan_trip.php">Plan Trip</a>
-                <?php endif; ?>
+                    <a class="btn btn-outline" href="plan_trip.php">Plan Trip</a>
+                    <a class="btn btn-outline" href="../auth/logout.php">Logout</a>
+                    <a href="edit_user_profile.php" class="nav-profile" aria-label="Edit Profile">
+                            <img src="<?php echo $user_pic; ?>" class="nav-avatar" alt="User Avatar">
+                            <span class="mobile-profile-text">Edit Profile</span>
+                    </a>
+                  <?php endif; ?>
+                </div> 
             </nav>
         </div>
     </header>
@@ -88,8 +158,10 @@ function getRegionName(string $location): string {
         <section class="panel search-panel">
             <form method="GET" class="search-form">
                 <input type="text" name="search" placeholder="Search destinations..." value="<?php echo htmlspecialchars($search); ?>">
-                <button class="btn btn-primary" type="submit">Search</button>
-                <a class="btn btn-outline" href="destinations.php">Reset</a>
+                <div class="search-btn-container">
+                    <button class="custom-btn-search" type="submit">🔍︎</button>
+                    <a href="destinations.php" class="custom-btn-reset">Reset</a>
+                </div>
             </form>
         </section>
 
