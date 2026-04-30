@@ -115,12 +115,12 @@ if (isset($conn) && $conn instanceof PDO) {
 // 7. Emission & Scoring Logic
 $emissionFactors = [
     'walking' => 0, 'bike' => 0, 'public_bus' => 0.10, 'train' => 0.05,
-    'ferry' => 0.12, 'private_car' => 0.21, 'motorcycle' => 0.12, 'airplane' => 0.25,
+    'ferry' => 0.12, 'private_car' => 0.21, 'airplane' => 0.25,
 ];
 
 $baseScoreMap = [
     'walking' => 100, 'bike' => 95, 'train' => 85, 'public_bus' => 75,
-    'ferry' => 65, 'motorcycle' => 55, 'private_car' => 40, 'airplane' => 25,
+    'ferry' => 65, 'private_car' => 40, 'airplane' => 25,
 ];
 
 $estimatedEmission = ($emissionFactors[$transportMode] ?? 0.15) * $distanceKm * $travelerCount;
