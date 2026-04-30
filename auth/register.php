@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <div class="register-field">
-                    <label for="confirm_password">Confirm</label>
+                    <label for="confirm_password">Confirm Password</label>
                     <div class="password-input-wrapper">
                         <input type="password" id="confirm_password" name="confirm_password" placeholder="••••••••" required>
                         <span class="toggle-password">
