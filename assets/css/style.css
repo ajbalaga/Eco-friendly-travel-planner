@@ -699,7 +699,7 @@ footer .container {
 
 /* This stops the cursor from changing AND stops the blue highlighting */
 h1, h2, h3, p, span, .eco-badge, .profile-header, .feature-list li, .note, .notes-preview,
-.disclaimer-text, .trip-results-main, .impact-val, .itinerary-table th {
+.disclaimer-text, .trip-results-main, .impact-val, .itinerary-table th, .footer-links a   {
     cursor: default !important;
     user-select: none;         /* Standard */
     -webkit-user-select: none; /* Safari */
